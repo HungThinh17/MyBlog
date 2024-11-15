@@ -1,38 +1,31 @@
-// script.js
-// Sidebar toggle function
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
   const mainContent = document.querySelector('.main-content');
-  if (sidebar.style.left === '0px') {
-    sidebar.style.left = '-250px';
-    mainContent.style.marginLeft = '0';
-  } else {
-    sidebar.style.left = '0';
-    mainContent.style.marginLeft = '250px';
-  }
+  sidebar.classList.toggle('open');
+  mainContent.classList.toggle('sidebar-open');
 }
 
-// Close the sidebar
-function closeSidebar() {
+document.addEventListener('click', (e) => {
+  const sidebar = document.getElementById('sidebar');
+  const menuBtn = document.getElementById('menu-btn');
+  if (!sidebar.contains(e.target) && !menuBtn.contains(e.target) && sidebar.classList.contains('open')) {
+    toggleSidebar();
+  }
+});
+
+window.addEventListener('resize', () => {
   const sidebar = document.getElementById('sidebar');
   const mainContent = document.querySelector('.main-content');
-  sidebar.style.left = '-250px';
-  mainContent.style.marginLeft = '0';
-}
+  if (window.innerWidth <= 480 && sidebar.classList.contains('open')) {
+    mainContent.classList.remove('sidebar-open');
+  }
+});
 
-// Fetch and display blog posts from Markdown files
-function loadPosts() {
-  fetch('posts.md')
-    .then(response => response.text())
-    .then(data => {
-      const postsContainer = document.getElementById('main-content');
-      const posts = marked.parse(data); // Use marked.js to convert Markdown to HTML
-      postsContainer.innerHTML = posts;
-    })
-    .catch(error => console.error('Error loading Markdown:', error));
-}
+import { PostsManager, PostDetail } from './post.js';
 
-// Load posts when the page loads
-window.onload = function() {
-  loadPosts();
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const postsManager = new PostsManager();
+  postsManager.initialize();
+  document.getElementById('menu-btn').addEventListener('click', toggleSidebar);
+  document.querySelector('.back-button').addEventListener('click', () => PostDetail.hide());
+});

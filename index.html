@@ -7,28 +7,36 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <header>
+    <button id="menu-btn">☰ Menu</button>
+    <h1>Creative Blog</h1>
+  </header>
+
   <!-- Sidebar Menu -->
   <div id="sidebar">
-    <button id="close-btn" onclick="closeSidebar()">×</button>
     <a href="#">Home</a>
     <a href="#">About</a>
     <a href="#">Blog</a>
     <a href="#">Contact</a>
   </div>
 
-  <!-- Menu Toggle Button -->
-  <button id="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
-
   <!-- Main Content -->
   <div class="main-content" id="main-content">
-    <!-- Posts will be injected here by JavaScript -->
+    <div class="posts-grid" id="posts-grid">
+      <!-- Post previews will be injected here -->
+    </div>
+    <div class="post-detail" id="post-detail">
+      <!-- Post detail will be shown here -->
+      <button class="back-button">← Back to Posts</button>
+      <div class="detail-content"></div>
+    </div>
   </div>
 
   <footer>
     <p>&copy; 2024 Creative Blog. All rights reserved.</p>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.10/marked.min.js"></script>
-  <script src="script.js"></script>
+  <script src="node_modules/marked/marked.min.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
