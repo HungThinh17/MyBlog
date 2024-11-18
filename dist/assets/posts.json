@@ -1,0 +1,23 @@
+[
+    {
+        "id": "open_webui_readme",
+        "title": "Open Webui Readme",
+        "date": "2024-07-26",
+        "excerpt": "Open WebUI is an extensible pipeline, feature-rich, and user-friendly self-hosted WebUI designed to operate entirely offline.",
+        "readTime": 5
+    },
+    {
+        "id": "ollama_readme",
+        "title": "Ollama Readme",
+        "date": "2024-07-26",
+        "excerpt": "Ollama is a platform that allows users to run language models (like ChatGPT or other AI models) locally on their own hardware rather than relying on cloud services.",
+        "readTime": 5
+    },
+    {
+        "id": "react_web_app_bp",
+        "title": "Best Practice React Web App",
+        "date": "2024-07-26",
+        "excerpt": "Developing a React web application requires a structured approach to ensure maintainability, scalability, and performance.",
+        "readTime": 5
+    }
+]
