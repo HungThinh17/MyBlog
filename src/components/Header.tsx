@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  toggleSidebar: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   return (
     <header>
-      <button id="menu-btn">☰</button>
+      <button id="menu-btn" onClick={toggleSidebar}>☰</button>
       <h1>My Blog</h1>
     </header>
   );

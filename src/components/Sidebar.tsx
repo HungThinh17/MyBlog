@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/styles.css';
 
-const Sidebar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface SidebarProps {
+  isOpen: boolean;
+}
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
+const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   return (
     <div id="sidebar" className={isOpen ? 'open' : ''}>
       <a href="#">Home</a>
