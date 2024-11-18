@@ -1,22 +1,27 @@
-import React from 'react';
-import { PostsManager, PostDetail } from '../service/post';
+import React, { useState } from 'react';
+import PostsGrid from './PostsGrid';
 import CreatePostView from './CreatePostView';
+import PostDetail from './PostDetail';
 
-const MainContent: React.FC = () => {
-  const postsManager = new PostsManager();
+interface MainContentProps {
+  openCreatePost: () => void;
+  closeCreatePost: () => void;
+}
 
-  React.useEffect(() => {
-    postsManager.initialize();
-  }, []);
+const MainContent: React.FC<MainContentProps> = ({ openCreatePost, closeCreatePost }) => {
+  const [showPostDetail, setShowPostDetail] = useState(false);
+  const [selectedPostId, setSelectedPostId] = useState('');
+  const [showCreatePost, setShowCreatePost] = useState(false);
 
   return (
     <div className="main-content" id="main-content">
-      <div id="posts-grid"></div>
-      <div id="post-detail" className="post-detail">
-        <div className="detail-content"></div>
-        <button className="back-button" onClick={PostDetail.hide}>Back</button>
-      </div>
-      <CreatePostView />
+      <PostsGrid setShowPostDetail={setShowPostDetail} setSelectedPostId={setSelectedPostId} />
+      {showPostDetail && (
+        <div id="post-detail" className="post-detail active">
+          <PostDetail postId={selectedPostId} />
+          <button className="back-button" onClick={() => setShowPostDetail(false)}>Back</button>
+        </div>
+      )}
     </div>
   );
 };

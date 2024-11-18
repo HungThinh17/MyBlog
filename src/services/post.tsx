@@ -3,25 +3,21 @@ import * as marked from 'marked';
 // Constants
 const BASE_URL = window.location.pathname.replace(/\/$/, '');
 const PATHS = {
-  POSTS_JSON: `${BASE_URL}/resources/posts.json`,
-  POST_MARKDOWN: (id: string): string => `${BASE_URL}/resources/${id}.md`
+  POSTS_JSON: `${BASE_URL}/assets/posts.json`,
 };
 
-
-const SELECTORS = {
-  POSTS_GRID: '#posts-grid',
-  POST_DETAIL: '#post-detail',
-  DETAIL_CONTENT: '.detail-content',
-  BACK_BUTTON: '.back-button',
-  CREATE_POST_FORM: '#create-post-form',
-  MARKDOWN_INPUT: '#markdown-input'
-};
-
-const LOCAL_STORAGE_KEY = 'posts';
+interface Post {
+  id: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  readTime: number;
+  markdown: string;
+}
 
 // Helper function to display error messages
 function displayError(message: string): void {
-  const postsGrid = document.querySelector(SELECTORS.POSTS_GRID);
+  const postsGrid = document.querySelector('#posts-grid');
   if (postsGrid) {
     postsGrid.innerHTML = `
     <div class="error-message">
@@ -47,7 +43,10 @@ class PostPreview {
       </div>
       <p class="excerpt">${this.post.excerpt}</p>
     `;
-    preview.addEventListener('click', () => PostDetail.show(this.post.id));
+    preview.addEventListener('click', () => {
+      //This will need to be updated to use the new PostDetail component
+      //PostDetail.show(this.post.id);
+    });
     return preview;
   }
 
@@ -60,55 +59,6 @@ class PostPreview {
   }
 }
 
-interface Post {
-  id: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  readTime: number;
-  markdown: string;
-}
-
-
-// Post Detail Class
-class PostDetail {
-  static async show(postId: string): Promise<void> {
-    try {
-      const markdown = await this.fetchPostContent(postId);
-      this.renderDetail(markdown);
-      this.toggleViews(true);
-    } catch (error: any) {
-      displayError(`Error loading post detail: ${error.message}`);
-    }
-  }
-
-  static async fetchPostContent(postId: string): Promise<string> {
-    const response = await fetch(PATHS.POST_MARKDOWN(postId));
-    if (!response.ok) {
-      throw new Error(`Failed to load post ${postId}: ${response.status} ${response.statusText}`);
-    }
-    return response.text();
-  }
-
-  static async renderDetail(markdown: string): Promise<void> {
-    const detailContent = document.querySelector(SELECTORS.DETAIL_CONTENT);
-    if (detailContent) {
-      detailContent.innerHTML = await marked.parse(markdown);
-    }
-  }
-
-  static hide(): void {
-    this.toggleViews(false);
-  }
-
-  static toggleViews(showDetail: boolean): void {
-    const detailView = document.querySelector(SELECTORS.POST_DETAIL);
-    const postsGrid = document.querySelector(SELECTORS.POSTS_GRID) as HTMLElement;
-    if (detailView && postsGrid) {
-      detailView.classList.toggle('active', showDetail);
-      postsGrid.style.display = showDetail ? 'none' : 'flex';
-    }
-  }}
 
 // Posts Manager Class
 class PostsManager {
@@ -118,9 +68,9 @@ class PostsManager {
   createPostView: HTMLElement | null;
 
   constructor() {
-    this.postsGrid = document.querySelector(SELECTORS.POSTS_GRID);
-    this.createPostForm = document.querySelector(SELECTORS.CREATE_POST_FORM) as HTMLFormElement | null;
-    this.markdownInput = document.querySelector(SELECTORS.MARKDOWN_INPUT) as HTMLTextAreaElement | null;
+    this.postsGrid = document.querySelector('#posts-grid');
+    this.createPostForm = document.querySelector('#create-post-form') as HTMLFormElement | null;
+    this.markdownInput = document.querySelector('#markdown-input') as HTMLTextAreaElement | null;
     this.createPostView = document.getElementById('create-post-view');
   }
 
@@ -141,10 +91,10 @@ class PostsManager {
         throw new Error(`Failed to load posts from JSON: ${response.status} ${response.statusText}`);
       }
       const posts: Post[] = await response.json();
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(posts));
+      localStorage.setItem('posts', JSON.stringify(posts));
       return posts;
     } catch (error: any) {
-      const storedPosts = localStorage.getItem(LOCAL_STORAGE_KEY);
+      const storedPosts = localStorage.getItem('posts');
       if (storedPosts) {
         return JSON.parse(storedPosts);
       } else {
@@ -179,7 +129,7 @@ class PostsManager {
         };
         const posts = await this.loadPosts();
         posts.push(newPost);
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(posts));
+        localStorage.setItem('posts', JSON.stringify(posts));
         await this.savePostsToJson(posts);
         this.renderPosts(posts);
         this.markdownInput.value = '';
@@ -217,6 +167,7 @@ class PostsManager {
     } catch (error: any) {
       displayError(`Error saving posts to JSON: ${error.message}`);
     }
-  }}
+  }
+}
 
-export { PostsManager, PostPreview, PostDetail };
+export { PostsManager, PostPreview };
