@@ -12,5 +12,12 @@
         "date": "2024-07-26",
         "excerpt": "Ollama is a platform that allows users to run language models (like ChatGPT or other AI models) locally on their own hardware rather than relying on cloud services.",
         "readTime": 5
+    },
+    {
+        "id": "react_web_app_bp",
+        "title": "Best Practice React Web App",
+        "date": "2024-07-26",
+        "excerpt": "Developing a React web application requires a structured approach to ensure maintainability, scalability, and performance.",
+        "readTime": 5
     }
 ]
