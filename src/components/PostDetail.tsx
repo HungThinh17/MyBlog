@@ -12,7 +12,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ postId }) => {
   useEffect(() => {
     const fetchPostContent = async () => {
       try {
-        const response = await fetch(`/assets/${postId}.md`);
+        const response = await fetch(`/resources/${postId}.md`);
         if (!response.ok) {
           throw new Error(`Failed to load post ${postId}: ${response.status} ${response.statusText}`);
         }

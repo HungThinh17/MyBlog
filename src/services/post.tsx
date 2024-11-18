@@ -3,7 +3,7 @@ import * as marked from 'marked';
 // Constants
 const BASE_URL = window.location.pathname.replace(/\/$/, '');
 const PATHS = {
-  POSTS_JSON: `${BASE_URL}/assets/posts.json`,
+  POSTS_JSON: `${BASE_URL}/resources/posts.json`,
 };
 
 interface Post {

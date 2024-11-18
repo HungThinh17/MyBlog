@@ -21,7 +21,7 @@ const PostsGrid: React.FC<PostsGridProps> = ({ setShowPostDetail, setSelectedPos
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('/assets/posts.json');
+        const response = await fetch('/resources/posts.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
