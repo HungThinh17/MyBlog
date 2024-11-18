@@ -28,4 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
   postsManager.initialize();
   document.getElementById('menu-btn').addEventListener('click', toggleSidebar);
   document.querySelector('.back-button').addEventListener('click', () => PostDetail.hide());
+  const createPostLink = document.getElementById('create-post-link');
+  createPostLink.addEventListener('click', () => {
+    // createPostLink.style.pointerEvents = 'none'; // Disable link
+    alert('The create post feature is not yet supported.');
+    setTimeout(() => {
+      location.reload();
+    }, 1000); //Reload after 1 second
+  });
 });

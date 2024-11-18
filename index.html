@@ -8,8 +8,8 @@
 </head>
 <body>
   <header>
-    <button id="menu-btn">☰ Menu</button>
-    <h1>Creative Blog</h1>
+    <button id="menu-btn">☰</button>
+    <h1>My Blog</h1>
   </header>
 
   <!-- Sidebar Menu -->
@@ -18,6 +18,7 @@
     <a href="#">About</a>
     <a href="#">Blog</a>
     <a href="#">Contact</a>
+    <a id="create-post-link">Create Post</a>
   </div>
 
   <!-- Main Content -->
@@ -29,6 +30,13 @@
       <!-- Post detail will be shown here -->
       <button class="back-button">← Back to Posts</button>
       <div class="detail-content"></div>
+    </div>
+    <div id="create-post-view" style="display: none;">
+      <form id="create-post-form">
+        <input type="text" id="post-title" placeholder="Title">
+        <textarea id="markdown-input" placeholder="Enter markdown content..."></textarea>
+        <button type="submit">Create Post</button>
+      </form>
     </div>
   </div>
 

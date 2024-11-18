@@ -296,3 +296,56 @@ footer {
 .no-scroll {
   overflow: hidden;
 }
+
+/* Create Post Form Styles */
+#create-post-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+#create-post-form h2 {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+#markdown-input {
+  flex: 1;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical; /* Allow vertical resizing */
+  height: calc(100vh - 200px); /* Responsive height */
+}
+
+#create-post-form button[type="submit"] {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease;
+  align-self: flex-end; /* Align to bottom right */
+}
+
+#create-post-form button[type="submit"]:hover {
+  background-color: var(--color-primary-light);
+}
+
+@media (max-width: var(--breakpoint-tablet)) {
+  #create-post-form {
+    width: 90%;
+  }
+}
+
+@media (max-width: var(--breakpoint-mobile)) {
+  #create-post-form {
+    width: 95%;
+  }
+}
