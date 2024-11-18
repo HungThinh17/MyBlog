@@ -1,8 +1,10 @@
 // Constants
+const BASE_URL = window.location.pathname.replace(/\/$/, '');
 const PATHS = {
-  POSTS_JSON: '/resources/posts.json',
-  POST_MARKDOWN: (id) => `/resources/${id}.md`
+  POSTS_JSON: `${BASE_URL}/resources/posts.json`,
+  POST_MARKDOWN: (id) => `${BASE_URL}/resources/${id}.md`
 };
+
 
 const SELECTORS = {
   POSTS_GRID: '#posts-grid',
