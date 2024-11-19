@@ -18,10 +18,18 @@ interface PostsGridProps {
 const PostsGrid: React.FC<PostsGridProps> = ({ setShowPostDetail, setSelectedPostId }) => {
   const [posts, setPosts] = useState<Post[]>([]);
 
+  //Check if it's production build by checking if process.env.NODE_ENV is production
+  const isProduction = process.env.NODE_ENV === 'production';
+  const baseUrl = isProduction ? 'https://hungthinh17.github.io/MyBlog/dist' : window.location.pathname.replace(/\/$/, '');
+  const PATHS = {
+    POSTS_JSON: `${baseUrl}/resources/posts.json`,
+    POST_MARKDOWN: (id: string) => `${baseUrl}/resources/${id}.md`
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('/resources/posts.json');
+        const response = await fetch(PATHS.POSTS_JSON);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
